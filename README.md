@@ -18,7 +18,7 @@ This branch is version 2. Version 1 trained and tested only `chargeLine` and wro
 - Fine-tuning: LoRA with `r=16`, `alpha=16`, no dropout, on the attention and MLP projection layers (`q_proj`, `k_proj`, `v_proj`, `o_proj`, `gate_proj`, `up_proj`, `down_proj`).
 - Hardware: one Tesla T4 with an 8-bit optimizer. The notebook runs on free Colab or Kaggle.
 - Precision: the training arguments set `fp16=True`, but on my v1 run Unsloth reported that fp16 does not work for Gemma 4 and ran it in float32 instead.
-- Tools the agent knows about: `chargeLine(lineId, amount)`, `checkLineStatus(lineId)`, `emergencyStop(lineId)`. These stand in for Java methods. There is also a `none` answer with a reason (`missing_line_id`, `missing_amount` or `unsupported_request`) for requests the agent should not act on.
+- Tools the agent knows about: `chargeLine(lineId, amount)`, `checkLineStatus(lineId)`, `emergencyStop(lineId)`. These stand in for Java methods. There is also a `none` answer with a reason (`missing_line_id`, `missing_amount` or `unsupported_request`) for requests the agent should not act on. All three tools and the `none` answer are in the training data.
 
 ## Training data
 
@@ -34,6 +34,12 @@ Action: chargeLine. ID: 12. Amt: 50.
 
 ```
 <|think|>
+Action: checkLineStatus. ID: 34.
+<|channel|>{"tool": "checkLineStatus", "parameters": {"lineId": "34"}}
+```
+
+```
+<|think|>
 Action: none. Reason: missing_line_id.
 <|channel|>{"tool": "none", "parameters": {"reason": "missing_line_id"}}
 ```
@@ -44,13 +50,13 @@ The system prompt lists the three tools and `none` with their parameters, and ne
 
 I used the plain Hugging Face `Trainer`, because the Unsloth chat-template path was broken for me at that point. The prompt format (`<|turn|>`, `<|think|>`, `<|channel|>`) is written by hand in the notebook, so it may not match Gemma's official chat template exactly.
 
-The text already starts with `<bos>`, so training tokenizes it with `add_special_tokens=False`, the same way inference does. The pad token is the end-of-sequence token, so the labels are masked with -100 on padding positions only, found through the attention mask. That keeps the real `<eos>` in the loss so the model learns to stop. The notebook also checks that no example is longer than 128 tokens before padding.
+The text already starts with `<bos>`, so training tokenizes it with `add_special_tokens=False` and the tokenizer does not add a second `<bos>`. Inference builds its prompt the same way. The pad token is the end-of-sequence token, so the labels are masked with -100 on padding positions only, found through the attention mask. That keeps the real `<eos>` in the loss so the model learns to stop. The notebook also checks that no example is longer than 128 tokens before padding.
 
 | Setting | Value |
 |---|---|
 | Max tokens per example | 128 |
 | Batch size | 1, with 8 gradient accumulation steps |
-| Steps | 90 (about 3 passes over 240 examples) |
+| Steps | `max_steps=90` (about 3 epochs over 240 examples) |
 | Learning rate | 2e-4 |
 | Optimizer | `adamw_8bit` |
 | Precision | `fp16=True` in the arguments, but on my v1 run Unsloth ran Gemma 4 in float32 |
@@ -64,8 +70,6 @@ This part took most of my time in v1. With a normal prompt the model rambled ins
 3. A raw `USER: ... AGENT_ACTION:` format with a repetition penalty.
 4. Pre-filling the response all the way up to the opening `{` of the JSON.
 5. Adding a format hint and a one-shot example to the system prompt.
-
-The v1 demo pre-filled `Action: chargeLine.` and opened the JSON brace, so the model only filled in the line ID and amount.
 
 In v2 the prompt is pre-filled only up to `<|think|>\nAction:`. The model writes the tool name, the rest of the reasoning line, the `<|channel|>` token and the JSON itself. Decoding is greedy with at most 80 new tokens and stops at the end-of-sequence token. I decode with special tokens kept, take the text after the first `<|channel|>`, and pull out the first balanced `{...}` object by counting braces. If there isn't one, the agent returns `None`.
 
