@@ -25,8 +25,6 @@ Action: chargeLine. ID: 12. Amt: 50.
 <|channel|>{"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 50.0}}
 ```
 
-I first wrote a generator with five different phrasings and more amounts, but the cell that was supposed to use it crashed after a session restart (the Unsloth import failed), so I rewrote a simpler version inline. That simpler one is what trained the model, and it is the only generator left in the notebook.
-
 ## Training
 
 I used the plain Hugging Face `Trainer` with a causal LM collator, because the Unsloth chat-template path was broken for me at that point. The prompt format (`<|turn|>`, `<|think|>`, `<|channel|>`) is written by hand in the notebook, so it may not match Gemma's official chat template exactly.
