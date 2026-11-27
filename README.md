@@ -25,7 +25,7 @@ Action: chargeLine. ID: 12. Amt: 50.
 <|channel|>{"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 50.0}}
 ```
 
-The notebook also has an earlier generator with five different phrasings and more amounts. I wrote it first, but the cell that was supposed to use it crashed after a session restart (the Unsloth import failed), so I rewrote a simpler version inline. That simpler one is what trained the model.
+I first wrote a generator with five different phrasings and more amounts, but the cell that was supposed to use it crashed after a session restart (the Unsloth import failed), so I rewrote a simpler version inline. That simpler one is what trained the model, and it is the only generator left in the notebook.
 
 ## Training
 
@@ -58,7 +58,7 @@ The final demo function pre-fills `Action: chargeLine.` and opens the JSON brace
 2. Run the install cell, then restart the session.
 3. Run the cells in order from a fresh session.
 
-The notebook is a working log and has dead ends in it. Cell 3 patches files inside the installed `unsloth_zoo` package to get around import errors; that was a hack for the library versions I had on that day and I wouldn't copy it. Running cells out of order will also give errors (`tokenizer_only` is only defined in the training cell, for example).
+On my original run I patched files inside the installed `unsloth_zoo` package to get around import errors. That was a hack for the library versions I had on that day, so I left it out of this version of the notebook. Running cells out of order will also give errors (`tokenizer_only` is only defined in the training cell, for example).
 
 ## Limitations
 
