@@ -12,7 +12,8 @@ It's a prototype. The data is fake, the dataset is tiny, and I never measured ac
 
 - **Model:** `unsloth/gemma-4-E2B-it-unsloth-bnb-4bit` (Gemma 4 E2B, instruction tuned, 4-bit), loaded with Unsloth.
 - **Fine-tuning:** LoRA with `r=16`, `alpha=16`, no dropout, on the attention and MLP projection layers (`q_proj`, `k_proj`, `v_proj`, `o_proj`, `gate_proj`, `up_proj`, `down_proj`).
-- **Hardware:** a free Colab Tesla T4, so fp16 and an 8-bit optimizer.
+- **Hardware:** a free Colab Tesla T4, with an 8-bit optimizer.
+- **Precision:** the training arguments set `fp16=True`, but Unsloth reported that fp16 does not work for Gemma 4 and ran it in float32 instead.
 - **Tools the agent knows about:** `chargeLine(lineId, amount)`, `checkLineStatus(lineId)`, `emergencyStop(lineId)`. These stand in for Java methods. Only `chargeLine` ended up in the training data.
 
 ## Training data
@@ -36,7 +37,7 @@ I used the plain Hugging Face `Trainer` with a causal LM collator, because the U
 | Steps | 60 |
 | Learning rate | 2e-4 |
 | Optimizer | `adamw_8bit` |
-| Precision | fp16 |
+| Precision | `fp16=True` in the arguments, but Unsloth ran Gemma 4 in float32 |
 
 ## Inference
 
