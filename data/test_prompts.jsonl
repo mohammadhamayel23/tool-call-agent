@@ -1,30 +1,60 @@
-{"prompt": "Charge 15 to line 4", "expected": {"tool": "chargeLine", "parameters": {"lineId": "4", "amount": 15.0}}}
-{"prompt": "Please add 75 euros of credit to line 2.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "2", "amount": 75.0}}}
-{"prompt": "top up line 11 with 200", "expected": {"tool": "chargeLine", "parameters": {"lineId": "11", "amount": 200.0}}}
-{"prompt": "Put 250 on line 7.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "7", "amount": 250.0}}}
-{"prompt": "Could you charge line 13 for 500 euros?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "13", "amount": 500.0}}}
-{"prompt": "Line 6 needs 20 bucks.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "6", "amount": 20.0}}}
-{"prompt": "Add credit of 100 to line 1, thanks", "expected": {"tool": "chargeLine", "parameters": {"lineId": "1", "amount": 100.0}}}
-{"prompt": "I'd like to top up line 15 by 10 euros.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "15", "amount": 10.0}}}
-{"prompt": "yo put 30 bucks on line 8", "expected": {"tool": "chargeLine", "parameters": {"lineId": "8", "amount": 30.0}}}
-{"prompt": "Kindly credit line 3 with an amount of 45.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "3", "amount": 45.0}}}
-{"prompt": "75 on line 10 please", "expected": {"tool": "chargeLine", "parameters": {"lineId": "10", "amount": 75.0}}}
-{"prompt": "Recharge line 12 with 60 euros.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 60.0}}}
-{"prompt": "Can you add 200 bucks to line 5?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "5", "amount": 200.0}}}
-{"prompt": "Charge line 14, amount 25.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "14", "amount": 25.0}}}
-{"prompt": "Please top up line 9 with 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 15.0}}}
-{"prompt": "Add 500 to line 1.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "1", "amount": 500.0}}}
-{"prompt": "line 2: top up 40 euros", "expected": {"tool": "chargeLine", "parameters": {"lineId": "2", "amount": 40.0}}}
-{"prompt": "I need 250 euros added to line 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "15", "amount": 250.0}}}
-{"prompt": "Put 80 bucks on line 4 asap.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "4", "amount": 80.0}}}
-{"prompt": "We request a charge of 120 to line 11.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "11", "amount": 120.0}}}
-{"prompt": "add 5 euros credit on line 13", "expected": {"tool": "chargeLine", "parameters": {"lineId": "13", "amount": 5.0}}}
-{"prompt": "For line 7, add credit worth 90.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "7", "amount": 90.0}}}
-{"prompt": "Top line 3 up with 200 euros please.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "3", "amount": 200.0}}}
-{"prompt": "Charge 35 bucks to line 6.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "6", "amount": 35.0}}}
-{"prompt": "Give line 12 another 75.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 75.0}}}
-{"prompt": "Please put 150 euros on line 8.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "8", "amount": 150.0}}}
-{"prompt": "Line 10, charge 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "10", "amount": 15.0}}}
-{"prompt": "Can line 5 get 500 bucks of credit?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "5", "amount": 500.0}}}
-{"prompt": "I want to add 70 to line 14.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "14", "amount": 70.0}}}
-{"prompt": "Top up 250 on line 9, please.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 250.0}}}
+{"prompt": "Could you load 35 euros onto line 47?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "47", "amount": 35.0}}}
+{"prompt": "Recharge line 8 with 120.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "8", "amount": 120.0}}}
+{"prompt": "line 63, add 45 bucks please", "expected": {"tool": "chargeLine", "parameters": {"lineId": "63", "amount": 45.0}}}
+{"prompt": "I'd like to credit 250 to line 19.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "19", "amount": 250.0}}}
+{"prompt": "Please give line 5 an extra 20.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "5", "amount": 20.0}}}
+{"prompt": "Send 80 units to line 72.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "72", "amount": 80.0}}}
+{"prompt": "Can you refill line 33 with 60 euros?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "33", "amount": 60.0}}}
+{"prompt": "Add funds to line 91: 150.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "91", "amount": 150.0}}}
+{"prompt": "Bump line 14 up by 25.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "14", "amount": 25.0}}}
+{"prompt": "Load line 2 with 500 credits.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "2", "amount": 500.0}}}
+{"prompt": "I need to recharge 10 euros on line 56.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "56", "amount": 10.0}}}
+{"prompt": "Deposit 75 into line 38.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "38", "amount": 75.0}}}
+{"prompt": "my line 81 is running low, put 40 on it", "expected": {"tool": "chargeLine", "parameters": {"lineId": "81", "amount": 40.0}}}
+{"prompt": "Transfer 90 bucks to line 27, thanks.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "27", "amount": 90.0}}}
+{"prompt": "Credit line 66 for 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "66", "amount": 15.0}}}
+{"prompt": "Please process a 200 euro top-up for line 4.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "4", "amount": 200.0}}}
+{"prompt": "Increase the balance of line 49 by 30.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "49", "amount": 30.0}}}
+{"prompt": "Line 12 should get 100 added.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 100.0}}}
+{"prompt": "Refill 5 units on line 95 please.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "95", "amount": 5.0}}}
+{"prompt": "Could line 23 get a 50 euro recharge?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "23", "amount": 50.0}}}
+{"prompt": "Can you tell me whether line 17 is up?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "17"}}}
+{"prompt": "Is line 52 still running?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "52"}}}
+{"prompt": "How is line 9 doing right now?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "9"}}}
+{"prompt": "Give me the current state of line 74.", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "74"}}}
+{"prompt": "line 30 status?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "30"}}}
+{"prompt": "Check if line 61 is online.", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "61"}}}
+{"prompt": "Has line 3 gone down?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "3"}}}
+{"prompt": "Report on line 88, is everything fine?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "88"}}}
+{"prompt": "I want to know if line 25 is live.", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "25"}}}
+{"prompt": "Look up line 44 for me, does it work?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "44"}}}
+{"prompt": "Any problems on line 13?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "13"}}}
+{"prompt": "Please verify that line 70 is operational.", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "70"}}}
+{"prompt": "What state is line 6 in?", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "6"}}}
+{"prompt": "Quick health check on line 99.", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "99"}}}
+{"prompt": "Tell me if line 41 is active or not.", "expected": {"tool": "checkLineStatus", "parameters": {"lineId": "41"}}}
+{"prompt": "Halt line 22 immediately!", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "22"}}}
+{"prompt": "Disable line 58 right now, it's been hacked.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "58"}}}
+{"prompt": "Emergency! Block line 11.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "11"}}}
+{"prompt": "Please suspend line 36 at once.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "36"}}}
+{"prompt": "Pull the plug on line 84.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "84"}}}
+{"prompt": "Terminate line 7 now, we have a breach.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "7"}}}
+{"prompt": "Freeze line 65 immediately.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "65"}}}
+{"prompt": "Turn off line 19 urgently.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "19"}}}
+{"prompt": "Line 47 is under attack, stop it.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "47"}}}
+{"prompt": "Deactivate line 90 asap.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "90"}}}
+{"prompt": "Shut line 2 off right now.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "2"}}}
+{"prompt": "Lock down line 53, suspicious activity.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "53"}}}
+{"prompt": "Stop everything on line 28 immediately.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "28"}}}
+{"prompt": "We need line 77 cut off this second.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "77"}}}
+{"prompt": "Abort line 15, it's compromised.", "expected": {"tool": "emergencyStop", "parameters": {"lineId": "15"}}}
+{"prompt": "Recharge my phone with 30 euros.", "expected": {"tool": "none", "parameters": {"reason": "missing_line_id"}}}
+{"prompt": "Add 100 bucks of credit please.", "expected": {"tool": "none", "parameters": {"reason": "missing_line_id"}}}
+{"prompt": "Please load 45 onto the line.", "expected": {"tool": "none", "parameters": {"reason": "missing_line_id"}}}
+{"prompt": "Top up line 26 please.", "expected": {"tool": "none", "parameters": {"reason": "missing_amount"}}}
+{"prompt": "I want to add credit to line 73.", "expected": {"tool": "none", "parameters": {"reason": "missing_amount"}}}
+{"prompt": "Recharge line 9.", "expected": {"tool": "none", "parameters": {"reason": "missing_amount"}}}
+{"prompt": "Book me a flight to Istanbul.", "expected": {"tool": "none", "parameters": {"reason": "unsupported_request"}}}
+{"prompt": "What is the capital of Jordan?", "expected": {"tool": "none", "parameters": {"reason": "unsupported_request"}}}
+{"prompt": "Can you summarize this article for me?", "expected": {"tool": "none", "parameters": {"reason": "unsupported_request"}}}
+{"prompt": "Change the password on my account.", "expected": {"tool": "none", "parameters": {"reason": "unsupported_request"}}}
