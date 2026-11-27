@@ -1,6 +1,6 @@
 # tool-call-agent: fine-tuning a small LLM to emit tool calls
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/main/ToolCallAgent.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/v2/ToolCallAgent.ipynb)
 
 I built this during an internship at a telecom company. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could read a plain request like "Top up line 9 with 50 bucks", pick the right backend tool, and write JSON that a Java backend can run:
 
