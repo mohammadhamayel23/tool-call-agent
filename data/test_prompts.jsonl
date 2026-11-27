@@ -1,0 +1,30 @@
+{"prompt": "Charge 15 to line 4", "expected": {"tool": "chargeLine", "parameters": {"lineId": "4", "amount": 15.0}}}
+{"prompt": "Please add 75 euros of credit to line 2.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "2", "amount": 75.0}}}
+{"prompt": "top up line 11 with 200", "expected": {"tool": "chargeLine", "parameters": {"lineId": "11", "amount": 200.0}}}
+{"prompt": "Put 250 on line 7.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "7", "amount": 250.0}}}
+{"prompt": "Could you charge line 13 for 500 euros?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "13", "amount": 500.0}}}
+{"prompt": "Line 6 needs 20 bucks.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "6", "amount": 20.0}}}
+{"prompt": "Add credit of 100 to line 1, thanks", "expected": {"tool": "chargeLine", "parameters": {"lineId": "1", "amount": 100.0}}}
+{"prompt": "I'd like to top up line 15 by 10 euros.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "15", "amount": 10.0}}}
+{"prompt": "yo put 30 bucks on line 8", "expected": {"tool": "chargeLine", "parameters": {"lineId": "8", "amount": 30.0}}}
+{"prompt": "Kindly credit line 3 with an amount of 45.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "3", "amount": 45.0}}}
+{"prompt": "75 on line 10 please", "expected": {"tool": "chargeLine", "parameters": {"lineId": "10", "amount": 75.0}}}
+{"prompt": "Recharge line 12 with 60 euros.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 60.0}}}
+{"prompt": "Can you add 200 bucks to line 5?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "5", "amount": 200.0}}}
+{"prompt": "Charge line 14, amount 25.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "14", "amount": 25.0}}}
+{"prompt": "Please top up line 9 with 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 15.0}}}
+{"prompt": "Add 500 to line 1.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "1", "amount": 500.0}}}
+{"prompt": "line 2: top up 40 euros", "expected": {"tool": "chargeLine", "parameters": {"lineId": "2", "amount": 40.0}}}
+{"prompt": "I need 250 euros added to line 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "15", "amount": 250.0}}}
+{"prompt": "Put 80 bucks on line 4 asap.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "4", "amount": 80.0}}}
+{"prompt": "We request a charge of 120 to line 11.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "11", "amount": 120.0}}}
+{"prompt": "add 5 euros credit on line 13", "expected": {"tool": "chargeLine", "parameters": {"lineId": "13", "amount": 5.0}}}
+{"prompt": "For line 7, add credit worth 90.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "7", "amount": 90.0}}}
+{"prompt": "Top line 3 up with 200 euros please.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "3", "amount": 200.0}}}
+{"prompt": "Charge 35 bucks to line 6.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "6", "amount": 35.0}}}
+{"prompt": "Give line 12 another 75.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 75.0}}}
+{"prompt": "Please put 150 euros on line 8.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "8", "amount": 150.0}}}
+{"prompt": "Line 10, charge 15.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "10", "amount": 15.0}}}
+{"prompt": "Can line 5 get 500 bucks of credit?", "expected": {"tool": "chargeLine", "parameters": {"lineId": "5", "amount": 500.0}}}
+{"prompt": "I want to add 70 to line 14.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "14", "amount": 70.0}}}
+{"prompt": "Top up 250 on line 9, please.", "expected": {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 250.0}}}
