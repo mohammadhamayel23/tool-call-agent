@@ -22,7 +22,9 @@ This branch is version 2. Version 1 trained and tested only `chargeLine` and wro
 
 ## Training data
 
-Everything is synthetic and generated in the notebook. The run that actually trained the model uses 50 examples of one phrasing ("Charge {amt} to line {id}"), with line IDs from 1 to 15 and amounts of 10, 20, 50 or 100. Each target is a short reasoning line followed by the JSON:
+Everything is synthetic and generated in the notebook with seed 3407. There are 240 examples: 80 `chargeLine`, 60 `checkLineStatus`, 60 `emergencyStop` and 40 `none`. Each class has several phrasing templates, line IDs are random between 1 and 99, and charge amounts come from a fixed list between 5 and 200, sometimes with a currency word (bucks, euros, units). The `none` examples cover a missing line ID ("Top up 50"), a missing amount ("Charge line 12") and unrelated requests ("Write me a poem").
+
+Each target is a short reasoning line followed by the JSON:
 
 ```
 <|think|>
@@ -30,18 +32,28 @@ Action: chargeLine. ID: 12. Amt: 50.
 <|channel|>{"tool": "chargeLine", "parameters": {"lineId": "12", "amount": 50.0}}
 ```
 
+```
+<|think|>
+Action: none. Reason: missing_line_id.
+<|channel|>{"tool": "none", "parameters": {"reason": "missing_line_id"}}
+```
+
+The system prompt lists the three tools and `none` with their parameters, and never the answer for a specific request.
+
 ## Training
 
-I used the plain Hugging Face `Trainer` with a causal LM collator, because the Unsloth chat-template path was broken for me at that point. The prompt format (`<|turn|>`, `<|think|>`, `<|channel|>`) is written by hand in the notebook, so it may not match Gemma's official chat template exactly.
+I used the plain Hugging Face `Trainer`, because the Unsloth chat-template path was broken for me at that point. The prompt format (`<|turn|>`, `<|think|>`, `<|channel|>`) is written by hand in the notebook, so it may not match Gemma's official chat template exactly.
+
+The text already starts with `<bos>`, so training tokenizes it with `add_special_tokens=False`, the same way inference does. The pad token is the end-of-sequence token, so the labels are masked with -100 on padding positions only, found through the attention mask. That keeps the real `<eos>` in the loss so the model learns to stop. The notebook also checks that no example is longer than 128 tokens before padding.
 
 | Setting | Value |
 |---|---|
 | Max tokens per example | 128 |
 | Batch size | 1, with 8 gradient accumulation steps |
-| Steps | 60 |
+| Steps | 90 (about 3 passes over 240 examples) |
 | Learning rate | 2e-4 |
 | Optimizer | `adamw_8bit` |
-| Precision | `fp16=True` in the arguments, but Unsloth ran Gemma 4 in float32 |
+| Precision | `fp16=True` in the arguments, but on my v1 run Unsloth ran Gemma 4 in float32 |
 
 ## Inference
 
