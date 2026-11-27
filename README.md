@@ -1,5 +1,7 @@
 # orange-agent: fine-tuning a small LLM to emit tool calls
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/orange-agent/blob/main/OrangeAiAgent.ipynb)
+
 I built this during my internship at Orange. The goal was to see if a small open model, fine-tuned on a laptop-sized budget, could turn a plain request like "Top up line 9 with 50 bucks" into JSON that a Java backend can run:
 
 ```json
