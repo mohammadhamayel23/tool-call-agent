@@ -97,7 +97,7 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 - The agent covers three tools (`chargeLine`, `checkLineStatus`, `emergencyStop`) plus a `none` answer for requests it should decline. The model now picks the tool itself; only `Action:` is pre-filled.
 - The data is still synthetic and tiny: 240 training examples generated from a fixed set of templates, so the phrasing is narrow.
 - The test set is 60 prompts I wrote by hand. It is enough to show clear failure patterns, and too small for precise accuracy numbers.
-- Everything comes from one run with one seed (3407), so I can't say how much the numbers would move on another run.
+- The results will come from one run with one seed (3407), so I won't be able to say how much the numbers would move on another run.
 - There is no constrained decoding. The model can still write malformed JSON, and `parse_action` rejects it.
 - Anything that moves money or stops equipment would need input validation, authorization and confirmation steps before it went near a real system.
 
