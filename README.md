@@ -57,7 +57,7 @@ The text already starts with `<bos>`, so training tokenizes it with `add_special
 
 ## Inference
 
-This part took most of my time. With a normal prompt the model rambled instead of giving clean JSON, so I tried a series of fixes, each one constraining it more. The notebook only lists them, and the code keeps just the final version:
+This part took most of my time in v1. With a normal prompt the model rambled instead of giving clean JSON, so I tried a series of fixes, each one constraining it more:
 
 1. Greedy decoding with a stop string.
 2. Priming the answer with `Action:`.
@@ -65,7 +65,11 @@ This part took most of my time. With a normal prompt the model rambled instead o
 4. Pre-filling the response all the way up to the opening `{` of the JSON.
 5. Adding a format hint and a one-shot example to the system prompt.
 
-The final demo function pre-fills `Action: chargeLine.` and opens the JSON brace, so the model only fills in the line ID and amount. That means it isn't choosing the tool, which is the biggest gap in this project.
+The v1 demo pre-filled `Action: chargeLine.` and opened the JSON brace, so the model only filled in the line ID and amount.
+
+In v2 the prompt is pre-filled only up to `<|think|>\nAction:`. The model writes the tool name, the rest of the reasoning line, the `<|channel|>` token and the JSON itself. Decoding is greedy with at most 80 new tokens and stops at the end-of-sequence token. I decode with special tokens kept, take the text after the first `<|channel|>`, and pull out the first balanced `{...}` object by counting braces. If there isn't one, the agent returns `None`.
+
+`parse_action` then checks the result against a schema table: the tool must be one of the three tools or `none`, the parameter keys must match that tool exactly, `lineId` must be a string of digits, `amount` must be a positive number, and `none` needs one of the three reason codes. Anything else is rejected.
 
 ## Results
 
