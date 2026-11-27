@@ -53,6 +53,28 @@ This part took most of my time. With a normal prompt the model rambled instead o
 
 The final demo function pre-fills `Action: chargeLine.` and opens the JSON brace, so the model only fills in the line ID and amount. That means it isn't choosing the tool, which is the biggest gap in this project.
 
+## Results
+
+### Training
+
+One run on a Colab T4 on 2026-11-27 (Unsloth 2026.11.12, Transformers 5.18.0, Torch 2.14.1, Python 3.13). LoRA trained 24,158,208 of 5,128,455,712 parameters, or 0.47%. The 60 steps covered about 8.6 epochs and took 363 s. Training loss went from 4.58 at step 1 to 0.053 at step 60, with an average of 0.477 over the run.
+
+### Spot check
+
+These are the three prompts from the notebook's "Try it" cell. The model produced the correct line ID and amount for all three:
+
+| Prompt | lineId | amount |
+|---|---|---|
+| Top up line 9 with 50 bucks. | 9 | 50.0 |
+| Add 250 units to line 12 immediately. | 12 | 250.0 |
+| Charge 20 to line 3 | 3 | 20.0 |
+
+At the time, the output started with a doubled opening brace (`{{`), so it was not valid JSON and `parse_action` returned `None` for all three. The fix for that is in this repo, but it has not been re-run on a GPU yet.
+
+### Evaluation
+
+The 30-prompt test set is in `data/test_prompts.jsonl`. Section 6 of the notebook runs the agent on each prompt and computes exact-match accuracy on the tool, line ID and amount. It has not been run yet, so no accuracy figure is reported here.
+
 ## Running it
 
 1. Open `OrangeAiAgent.ipynb` in Colab with a T4 runtime.
