@@ -58,7 +58,7 @@ The final demo function pre-fills `Action: chargeLine.` and opens the JSON brace
 2. Run the install cell, then restart the session.
 3. Run the cells in order from a fresh session.
 
-On my original run I patched files inside the installed `unsloth_zoo` package to get around import errors. That was a hack for the library versions I had on that day, so I left it out of this version of the notebook. Running cells out of order will also give errors (`tokenizer_only` is only defined in the training cell, for example).
+If the `unsloth_zoo` import fails, the setup section of the notebook explains the reinstall that fixed it for me. Running cells out of order will also give errors (`tokenizer_only` is only defined in the training cell, for example).
 
 ## Limitations
 
