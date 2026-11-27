@@ -83,6 +83,15 @@ The 30-prompt test set is in `data/test_prompts.jsonl`. Section 6 of the noteboo
 
 If the `unsloth_zoo` import fails, the setup section of the notebook explains the reinstall that fixed it for me. Running cells out of order will also give errors (`tokenizer_only` is only defined in the training cell, for example).
 
+## Repository layout
+
+- `OrangeAiAgent.ipynb`: the notebook, covering setup, data generation, training, inference and evaluation.
+- `data/test_prompts.jsonl`: 30 hand-written test cases for `chargeLine`.
+- `requirements.txt`: package versions from the Colab run.
+- `LICENSE`: the license for this repo.
+- `.gitignore`: keeps model weights, checkpoints and environment files out of git.
+- `.gitattributes`: line ending settings, so the notebook always uses LF.
+
 ## Limitations
 
 - 50 examples, one phrasing, one tool. It will not generalize to wording it hasn't seen.
