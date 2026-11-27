@@ -1,8 +1,8 @@
-# orange-agent: fine-tuning a small LLM to emit tool calls
+# tool-call-agent: fine-tuning a small LLM to emit tool calls
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/orange-agent/blob/main/OrangeAiAgent.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/main/ToolCallAgent.ipynb)
 
-I built this during my internship at Orange. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could turn a plain request like "Top up line 9 with 50 bucks" into JSON that a Java backend can run:
+I built this during an internship at a telecom company. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could turn a plain request like "Top up line 9 with 50 bucks" into JSON that a Java backend can run:
 
 ```json
 {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 50.0}}
@@ -99,7 +99,7 @@ These numbers cover a narrow setup, and I don't take them as evidence that the m
 
 ## Running it
 
-1. Open `OrangeAiAgent.ipynb` in Colab with a T4 runtime.
+1. Open `ToolCallAgent.ipynb` in Colab with a T4 runtime.
 2. Run the install cell, then restart the session.
 3. Run the cells in order from a fresh session.
 
@@ -107,7 +107,7 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 
 ## Repository layout
 
-- `OrangeAiAgent.ipynb`: the notebook, covering setup, data generation, training, inference and evaluation.
+- `ToolCallAgent.ipynb`: the notebook, covering setup, data generation, training, inference and evaluation.
 - `data/test_prompts.jsonl`: 30 hand-written test cases for `chargeLine`.
 - `requirements.txt`: package versions from the Colab run.
 - `LICENSE`: the license for this repo.
