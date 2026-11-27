@@ -41,7 +41,7 @@ I used the plain Hugging Face `Trainer` with a causal LM collator, because the U
 
 ## Inference
 
-This part took most of my time. With a normal prompt the model rambled instead of giving clean JSON, so the notebook walks through a series of fixes, each one constraining it more:
+This part took most of my time. With a normal prompt the model rambled instead of giving clean JSON, so I tried a series of fixes, each one constraining it more. The notebook only lists them, and the code keeps just the final version:
 
 1. Greedy decoding with a stop string.
 2. Priming the answer with `Action:`.
