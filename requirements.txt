@@ -1,5 +1,7 @@
 # Tested on Google Colab (Tesla T4).
 # transformers and torch are the versions of the 2026-11-27 Colab run (Python 3.13).
+# The pins below come from that Colab run. The full Kaggle run (2x T4) used
+# Torch 2.11.0+cu130 with the same Unsloth (2026.11.12) and Transformers versions.
 # Unsloth moves fast, so pin these if you want to reproduce the run.
 
 unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
