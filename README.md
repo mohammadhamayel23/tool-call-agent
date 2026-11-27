@@ -1,6 +1,6 @@
 # tool-call-agent: fine-tuning a small LLM to emit tool calls
 
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/v2/ToolCallAgent.ipynb)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/main/ToolCallAgent.ipynb)
 
 I built this during an internship at a telecom company. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could read a plain request like "Top up line 9 with 50 bucks", pick the right backend tool, and write JSON that a Java backend can run:
 
@@ -77,7 +77,32 @@ In v2 the prompt is pre-filled only up to `<|think|>\nAction:`. The model writes
 
 ## Results
 
-Results will be added after the v2 run.
+These numbers come from one run on Kaggle with a Tesla T4: 90 steps on the 240 training examples, then the 60 held-out test prompts in `data/test_prompts.jsonl`.
+
+| Metric | Result |
+|---|---|
+| Valid JSON | 60/60 |
+| Tool accuracy | 59/60 |
+| Exact match (tool and parameters) | 59/60 |
+
+| Tool | Correct |
+|---|---|
+| `chargeLine` | 20/20 |
+| `checkLineStatus` | 15/15 |
+| `emergencyStop` | 15/15 |
+| `none` | 9/10 |
+
+There was one failure:
+
+| Prompt | Expected | Model output |
+|---|---|---|
+| "Please load 45 onto the line." | `none`, reason `missing_line_id` | `chargeLine` with `lineId` "5" and `amount` 45.0 |
+
+The request had no line id, and the model made one up instead of declining. For a tool that moves money, that is the worst kind of mistake, and it is the one I would want to fix first.
+
+Training loss started at 4.93 at step 1 and was down to about 0.1 by steps 60 to 70.
+
+I would read these numbers with care. The training data is synthetic and comes from a small set of templates. This is one run with one seed. 60 prompts is a small test set, so one more failure would move tool accuracy by almost two points. I wrote the test prompts by hand and none of them appear in the training data, but the model was trained on templates that are close to them, so the score says little about how it would handle real user phrasing. This is a prototype and is not ready for production use.
 
 ## Running it
 
@@ -101,7 +126,7 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 - The agent covers three tools (`chargeLine`, `checkLineStatus`, `emergencyStop`) plus a `none` answer for requests it should decline. The model now picks the tool itself; only `Action:` is pre-filled.
 - The data is still synthetic and tiny: 240 training examples generated from a fixed set of templates, so the phrasing is narrow.
 - The test set is 60 prompts I wrote by hand. It is enough to show clear failure patterns, and too small for precise accuracy numbers.
-- The results will come from one run with one seed (3407), so I won't be able to say how much the numbers would move on another run.
+- The results come from one run with one seed (3407), so I can't say how much the numbers would move on another run.
 - There is no constrained decoding. The model can still write malformed JSON, and `parse_action` rejects it.
 - Anything that moves money or stops equipment would need input validation, authorization and confirmation steps before it went near a real system.
 
