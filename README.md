@@ -8,7 +8,7 @@ I built this during my internship at Orange. The goal was to see if a small open
 {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 50.0}}
 ```
 
-It's a prototype. The data is fake, the dataset is tiny, and I never measured accuracy properly. Details on all of that are in the limitations section below.
+It's a prototype. The data is fake, the dataset is tiny, and the only accuracy number comes from a small hand-written test set. Details on all of that are in the limitations section below.
 
 ## Setup
 
@@ -55,13 +55,22 @@ The final demo function pre-fills `Action: chargeLine.` and opens the JSON brace
 
 ## Results
 
+All the numbers here come from one full run of the notebook on Kaggle with two T4 GPUs (Unsloth 2026.11.12, Transformers 5.18.0, Torch 2.11.0+cu130, Python 3.13), with seed 3407.
+
 ### Training
 
-One run on a Colab T4 on 2026-11-27 (Unsloth 2026.11.12, Transformers 5.18.0, Torch 2.14.1, Python 3.13). LoRA trained 24,158,208 of 5,128,455,712 parameters, or 0.47%. The 60 steps covered about 8.6 epochs and took 363 s. Training loss went from 4.58 at step 1 to 0.053 at step 60, with an average of 0.477 over the run.
+| Metric | Value |
+|---|---|
+| Steps | 60 |
+| Training time | about 362 s |
+| Loss at step 1 | 4.58 |
+| Loss at step 20 | about 0.05 |
+| Loss at step 60 | 0.0533 |
+| Average loss over the run | 0.477 |
 
 ### Spot check
 
-These are the three prompts from the notebook's "Try it" cell. The model produced the correct line ID and amount for all three:
+These are the three prompts from the notebook's "Try it" cell. All three produced valid `chargeLine` JSON with the correct line ID and amount:
 
 | Prompt | lineId | amount |
 |---|---|---|
@@ -69,11 +78,24 @@ These are the three prompts from the notebook's "Try it" cell. The model produce
 | Add 250 units to line 12 immediately. | 12 | 250.0 |
 | Charge 20 to line 3 | 3 | 20.0 |
 
-At the time, the output started with a doubled opening brace (`{{`), so it was not valid JSON and `parse_action` returned `None` for all three. The fix for that is in this repo, but it has not been re-run on a GPU yet.
+In an earlier Colab run the output started with a doubled opening brace (`{{`), so it did not parse. `parse_action` now strips any leading braces, prepends a single one, and adds closing braces until they balance.
 
 ### Evaluation
 
-The 30-prompt test set is in `data/test_prompts.jsonl`. Section 6 of the notebook runs the agent on each prompt and computes exact-match accuracy on the tool, line ID and amount. It has not been run yet, so no accuracy figure is reported here.
+I ran the agent on the 30 hand-written prompts in `data/test_prompts.jsonl` and checked the tool, line ID and amount against the expected values.
+
+| Metric | Result |
+|---|---|
+| Valid JSON | 30/30 |
+| Exact match on tool, lineId and amount | 30/30 |
+| Failures | 0 |
+
+These numbers cover a narrow setup, and I don't take them as evidence that the model generalizes beyond it:
+
+- The prompt pre-fills the tool name `chargeLine`, so the model is not choosing between tools.
+- All 30 test prompts are `chargeLine` requests.
+- This is one run with one seed (3407), and the test set is small and written by hand.
+- The training data is synthetic.
 
 ## Running it
 
@@ -95,14 +117,14 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 ## Limitations
 
 - 50 examples, one phrasing, one tool. It will not generalize to wording it hasn't seen.
-- There is a 30-prompt test set now, but it has not been run yet, so there is no accuracy number.
+- The 30-prompt test set only has `chargeLine` requests and the prompt pre-fills that tool name, so the 30/30 result says nothing about picking the right tool.
 - The final demo hard-codes the tool name in the prompt.
 - Anything that moves money or stops equipment would need input validation, authorization and confirmation steps before it went near a real system.
 
 ## What I'd do next
 
 - Generate data for all three tools, plus vague and invalid requests.
-- Run the test set and report exact match on tool name and arguments.
+- Add test prompts for the other two tools and for vague or invalid requests.
 - Drop the pre-filled `Action:` so the model picks the tool itself.
 - Validate output against a JSON schema, and try constrained decoding.
 - Export the adapter or a merged model and call it from a mock Java service.
