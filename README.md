@@ -55,47 +55,7 @@ The final demo function pre-fills `Action: chargeLine.` and opens the JSON brace
 
 ## Results
 
-All the numbers here come from one full run of the notebook on Kaggle with two T4 GPUs (Unsloth 2026.11.12, Transformers 5.18.0, Torch 2.11.0+cu130, Python 3.13), with seed 3407.
-
-### Training
-
-| Metric | Value |
-|---|---|
-| Steps | 60 |
-| Training time | about 362 s |
-| Loss at step 1 | 4.58 |
-| Loss at step 20 | about 0.05 |
-| Loss at step 60 | 0.0533 |
-| Average loss over the run | 0.477 |
-
-### Spot check
-
-These are the three prompts from the notebook's "Try it" cell. All three produced valid `chargeLine` JSON with the correct line ID and amount:
-
-| Prompt | lineId | amount |
-|---|---|---|
-| Top up line 9 with 50 bucks. | 9 | 50.0 |
-| Add 250 units to line 12 immediately. | 12 | 250.0 |
-| Charge 20 to line 3 | 3 | 20.0 |
-
-In an earlier Colab run the output started with a doubled opening brace (`{{`), so it did not parse. `parse_action` now strips any leading braces, prepends a single one, and adds closing braces until they balance.
-
-### Evaluation
-
-I ran the agent on the 30 hand-written prompts in `data/test_prompts.jsonl` and checked the tool, line ID and amount against the expected values.
-
-| Metric | Result |
-|---|---|
-| Valid JSON | 30/30 |
-| Exact match on tool, lineId and amount | 30/30 |
-| Failures | 0 |
-
-These numbers cover a narrow setup, and I don't take them as evidence that the model generalizes beyond it:
-
-- The prompt pre-fills the tool name `chargeLine`, so the model is not choosing between tools.
-- All 30 test prompts are `chargeLine` requests.
-- This is one run with one seed (3407), and the test set is small and written by hand.
-- The training data is synthetic.
+Results will be added after the v2 run.
 
 ## Running it
 
@@ -108,7 +68,7 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 ## Repository layout
 
 - `ToolCallAgent.ipynb`: the notebook, covering setup, data generation, training, inference and evaluation.
-- `data/test_prompts.jsonl`: 30 hand-written test cases for `chargeLine`.
+- `data/test_prompts.jsonl`: 60 hand-written test cases: 20 `chargeLine`, 15 `checkLineStatus`, 15 `emergencyStop` and 10 `none`.
 - `requirements.txt`: package versions from the Colab run.
 - `LICENSE`: the license for this repo.
 - `.gitignore`: keeps model weights, checkpoints and environment files out of git.
@@ -116,17 +76,19 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 
 ## Limitations
 
-- 50 examples, one phrasing, one tool. It will not generalize to wording it hasn't seen.
-- The 30-prompt test set only has `chargeLine` requests and the prompt pre-fills that tool name, so the 30/30 result says nothing about picking the right tool.
-- The final demo hard-codes the tool name in the prompt.
+- The agent covers three tools (`chargeLine`, `checkLineStatus`, `emergencyStop`) plus a `none` answer for requests it should decline. The model now picks the tool itself; only `Action:` is pre-filled.
+- The data is still synthetic and tiny: 240 training examples generated from a fixed set of templates, so the phrasing is narrow.
+- The test set is 60 prompts I wrote by hand. It is enough to show clear failure patterns, and too small for precise accuracy numbers.
+- Everything comes from one run with one seed (3407), so I can't say how much the numbers would move on another run.
+- There is no constrained decoding. The model can still write malformed JSON, and `parse_action` rejects it.
 - Anything that moves money or stops equipment would need input validation, authorization and confirmation steps before it went near a real system.
 
 ## What I'd do next
 
-- Generate data for all three tools, plus vague and invalid requests.
-- Add test prompts for the other two tools and for vague or invalid requests.
-- Drop the pre-filled `Action:` so the model picks the tool itself.
-- Validate output against a JSON schema, and try constrained decoding.
+- Run with several seeds and report the spread along with the average.
+- Add harder test cases: two requests in one message, line ids written as words, amounts with decimals, and real user phrasing if I can get it.
+- Use constrained decoding against the JSON schema so malformed output can't happen.
+- Have the agent ask a follow-up question when the line id or amount is missing.
 - Export the adapter or a merged model and call it from a mock Java service.
 
 ## Credits
