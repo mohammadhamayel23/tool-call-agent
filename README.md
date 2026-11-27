@@ -2,21 +2,23 @@
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/main/ToolCallAgent.ipynb)
 
-I built this during an internship at a telecom company. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could turn a plain request like "Top up line 9 with 50 bucks" into JSON that a Java backend can run:
+I built this during an internship at a telecom company. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could read a plain request like "Top up line 9 with 50 bucks", pick the right backend tool, and write JSON that a Java backend can run:
 
 ```json
 {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 50.0}}
 ```
 
-It's a prototype. The data is fake, the dataset is tiny, and the only accuracy number comes from a small hand-written test set. Details on all of that are in the limitations section below.
+It's a prototype. The data is fake, the dataset is tiny, and the test set is small and written by hand. Details on all of that are in the limitations section below.
+
+This branch is version 2. Version 1 trained and tested only `chargeLine` and wrote the tool name into the prompt before the model started, so the model never chose a tool. That version is kept under the git tag `v1-single-tool`.
 
 ## Setup
 
 - Model: `unsloth/gemma-4-E2B-it-unsloth-bnb-4bit` (Gemma 4 E2B, instruction tuned, 4-bit), loaded with Unsloth.
 - Fine-tuning: LoRA with `r=16`, `alpha=16`, no dropout, on the attention and MLP projection layers (`q_proj`, `k_proj`, `v_proj`, `o_proj`, `gate_proj`, `up_proj`, `down_proj`).
 - Hardware: one Tesla T4 with an 8-bit optimizer. The notebook runs on free Colab or Kaggle.
-- Precision: the training arguments set `fp16=True`, but Unsloth reported that fp16 does not work for Gemma 4 and ran it in float32 instead.
-- Tools the agent knows about: `chargeLine(lineId, amount)`, `checkLineStatus(lineId)`, `emergencyStop(lineId)`. These stand in for Java methods. Only `chargeLine` ended up in the training data.
+- Precision: the training arguments set `fp16=True`, but on my v1 run Unsloth reported that fp16 does not work for Gemma 4 and ran it in float32 instead.
+- Tools the agent knows about: `chargeLine(lineId, amount)`, `checkLineStatus(lineId)`, `emergencyStop(lineId)`. These stand in for Java methods. There is also a `none` answer with a reason (`missing_line_id`, `missing_amount` or `unsupported_request`) for requests the agent should not act on.
 
 ## Training data
 
