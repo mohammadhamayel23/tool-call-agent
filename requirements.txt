@@ -1,14 +1,14 @@
 # Tested on Google Colab (Tesla T4, Python 3.12, CUDA 12.8)
 # Versions below are the ones shown in the notebook output; Unsloth moves fast,
 # so pin these if you want to reproduce the run.
+# transformers and torch are the versions of the 2026-11-27 Colab run.
 
 unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
 unsloth-zoo @ git+https://github.com/unslothai/unsloth-zoo.git
-xformers<0.0.30
 trl<0.15.0
 peft
 accelerate
 bitsandbytes
 datasets
-transformers==5.5.0
-torch==2.10.0
+transformers==5.18.0
+torch==2.14.1
