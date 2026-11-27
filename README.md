@@ -95,14 +95,14 @@ If the `unsloth_zoo` import fails, the setup section of the notebook explains th
 ## Limitations
 
 - 50 examples, one phrasing, one tool. It will not generalize to wording it hasn't seen.
-- No test set and no accuracy number. I only tried a handful of prompts by hand.
+- There is a 30-prompt test set now, but it has not been run yet, so there is no accuracy number.
 - The final demo hard-codes the tool name in the prompt.
 - Anything that moves money or stops equipment would need input validation, authorization and confirmation steps before it went near a real system.
 
 ## What I'd do next
 
 - Generate data for all three tools, plus vague and invalid requests.
-- Hold out a test set and measure exact match on tool name and arguments.
+- Run the test set and report exact match on tool name and arguments.
 - Drop the pre-filled `Action:` so the model picks the tool itself.
 - Validate output against a JSON schema, and try constrained decoding.
 - Export the adapter or a merged model and call it from a mock Java service.
