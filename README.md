@@ -2,7 +2,7 @@
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mohammadhamayel23/tool-call-agent/blob/main/ToolCallAgent.ipynb)
 
-I built this during an internship at a telecom company. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could read a plain request like "Top up line 9 with 50 bucks", pick the right backend tool, and write JSON that a Java backend can run:
+I started this during an internship at a telecom company and extended it afterwards. The goal was to see if a small open model, fine-tuned on a free cloud GPU, could read a plain request like "Top up line 9 with 50 bucks", pick the right backend tool, and write JSON that a Java backend can run:
 
 ```json
 {"tool": "chargeLine", "parameters": {"lineId": "9", "amount": 50.0}}
@@ -10,7 +10,7 @@ I built this during an internship at a telecom company. The goal was to see if a
 
 It's a prototype. The data is fake, the dataset is tiny, and the test set is small and written by hand. Details on all of that are in the limitations section below.
 
-This branch is version 2. Version 1 trained and tested only `chargeLine` and wrote the tool name into the prompt before the model started, so the model never chose a tool. That version is kept under the git tag `v1-single-tool`.
+This is version 2. Version 1 trained and tested only `chargeLine` and wrote the tool name into the prompt before the model started, so the model never chose a tool. That version is kept under the git tag `v1-single-tool`.
 
 ## Setup
 
